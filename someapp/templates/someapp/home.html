@@ -1,0 +1,83 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Студия красоты Amore</title>
+    <link rel="stylesheet" href="{% static 'someapp/style.css' %}">
+</head>
+<body>
+    <header class="topbar">
+        <div class="container topbar__inner">
+            <div class="logo">Amore</div>
+            <nav class="nav">
+                <a href="/">Главная</a>
+                <a href="">Услуги</a>
+                <a href="">Контакты</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="container hero__content">
+                <div>
+                    <p class="eyebrow">Салон красоты</p>
+                    <h1>Amore — место, где вас любят</h1>
+                    <p class="lead">Команда экспертов по уходу за волосами, кожей и настроением. Забронируйте услугу онлайн или по телефону.</p>
+                    <div class="actions">
+                        <a class="btn" href="#services">Посмотреть услуги</a>
+                        <a class="btn btn--ghost" href="">Позвонить</a>
+                    </div>
+                </div>
+                
+            </div>
+        </section>
+
+        <section id="services" class="section">
+            <div class="container section__header">
+                <div>
+                    <p class="eyebrow">Услуги</p>
+                    <h2>Выберите, что вам нужно</h2>
+                </div>
+                
+            </div>
+
+            <div class="container cards cards--grid">
+                {% for service in services %}
+                    <a class="card" href="{% url 'service_detail' service.slug %}">
+                        <h3>{{ service.title }}</h3>
+                        <p class="muted">{{ service.short_description|default:service.description|truncatewords:18 }}</p>
+                        <div class="chip-row">
+                            <span class="chip">~ {{ service.duration_minutes }} мин</span>
+                            <span class="chip">{{ service.price }} ₽</span>
+                        </div>
+                    </a>
+                {% empty %}
+                    <p class="container">Пока нет услуг. Добавьте их в админке.</p>
+                {% endfor %}
+            </div>
+        </section>
+    </main>
+
+    <footer id="contacts" class="footer">
+        <div class="container footer__grid">
+            <div>
+                <div class="logo logo--light">Amore</div>
+                <p>Современный салон красоты в центре города. Забота, комфорт и результат.</p>
+            </div>
+            <div>
+                <h4>Контакты</h4>
+                <p>ул. Цветочная, 12</p>
+                <p>Пн-Сб 10:00–21:00</p>
+                <p>+7 (999) 888-77-66</p>
+            </div>
+            <div>
+                <h4>Следите за нами</h4>
+                <p>@amore.beauty</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
